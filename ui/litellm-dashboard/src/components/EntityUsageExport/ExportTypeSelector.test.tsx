@@ -1,6 +1,10 @@
 import { renderWithProviders, screen } from "../../../tests/test-utils";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { createInstance } from "i18next";
+import { I18nextProvider } from "react-i18next";
+import en from "@/i18n/locales/en.json";
+import zh from "@/i18n/locales/zh-CN.json";
 import ExportTypeSelector from "./ExportTypeSelector";
 
 describe("ExportTypeSelector", () => {
@@ -19,6 +23,29 @@ describe("ExportTypeSelector", () => {
   it("should display the correct entity type for different entities", () => {
     renderWithProviders(<ExportTypeSelector value="daily" onChange={vi.fn()} entityType="organization" />);
     expect(screen.getByText(/Day-by-day breakdown by organization$/)).toBeInTheDocument();
+  });
+
+  it("translates entity names while preserving the selected export scope", async () => {
+    const i18n = createInstance();
+    await i18n.init({
+      lng: "zh-CN",
+      fallbackLng: "en",
+      resources: { en: { translation: en }, "zh-CN": { translation: zh } },
+    });
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    renderWithProviders(
+      <I18nextProvider i18n={i18n}>
+        <ExportTypeSelector value="daily" onChange={onChange} entityType="team" />
+      </I18nextProvider>,
+    );
+
+    expect(screen.getByText("按团队逐日细分")).toBeInTheDocument();
+    expect(screen.getByText("按团队和模型逐日细分")).toBeInTheDocument();
+    expect(screen.getByText("按团队和用户逐日细分")).toBeInTheDocument();
+    expect(screen.getByText("各团队的每日指标，按 API 密钥细分")).toBeInTheDocument();
+    await user.click(screen.getByRole("radio", { name: /按团队和密钥逐日细分/ }));
+    expect(onChange).toHaveBeenCalledWith("daily_with_keys");
   });
 
   it("should call onChange when a radio option is selected", async () => {

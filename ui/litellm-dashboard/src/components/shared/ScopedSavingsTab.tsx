@@ -119,7 +119,11 @@ const ScopedSavingsTab = ({ accessToken, scope, activity, entityType, scopeNote 
         <CardContent>
           {showEmpty && (
             <p className="py-12 text-center text-sm text-muted-foreground" data-testid={`${entityType}-savings-empty`}>
-              {isLoading ? t("shared.scopedSavingsTab.loading") : t("shared.scopedSavingsTab.noUsage", { entityType })}
+              {isLoading
+                ? t("shared.scopedSavingsTab.loading")
+                : t("shared.scopedSavingsTab.noUsage", {
+                    entityType: t(`usage.errors.entityLabels.${entityType}.singular`).toLowerCase(),
+                  })}
             </p>
           )}
           {showChart &&

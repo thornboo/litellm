@@ -1,6 +1,10 @@
 import { renderWithProviders, screen } from "../../../tests/test-utils";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
+import { createInstance } from "i18next";
+import { I18nextProvider } from "react-i18next";
+import en from "@/i18n/locales/en.json";
+import zh from "@/i18n/locales/zh-CN.json";
 import UsageExportHeader from "./UsageExportHeader";
 
 vi.mock("./EntityUsageExportModal", () => ({
@@ -114,6 +118,29 @@ describe("UsageExportHeader", () => {
 
     await user.click(screen.getByRole("button", { name: "Clear Filter by tag" }));
     expect(onFiltersChange).toHaveBeenCalledWith([]);
+  });
+
+  it("translates the entity name when explaining an empty filter", async () => {
+    const i18n = createInstance();
+    await i18n.init({
+      lng: "zh-CN",
+      fallbackLng: "en",
+      resources: { en: { translation: en }, "zh-CN": { translation: zh } },
+    });
+    renderWithProviders(
+      <I18nextProvider i18n={i18n}>
+        <UsageExportHeader
+          {...defaultProps}
+          entityType="tag"
+          showFilters
+          filterLabel="按标签筛选"
+          filterOptions={[]}
+          onFiltersChange={vi.fn()}
+        />
+      </I18nextProvider>,
+    );
+
+    expect(screen.getByPlaceholderText("此范围内没有产生用量的标签")).toBeDisabled();
   });
 
   it("should leave the filter enabled with its normal placeholder when options exist", () => {

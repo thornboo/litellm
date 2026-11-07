@@ -88,7 +88,10 @@ describe("Simplified Chinese", () => {
     await instance.init({
       lng: "zh-CN",
       fallbackLng: "en",
-      resources: { en: { translation: en }, "zh-CN": { translation: zh } },
+      resources: {
+        en: { translation: en },
+        "zh-CN": { translation: { login: zh.login, shared: zh.shared, shell: zh.shell } },
+      },
     });
 
     expect(instance.t("login.form.title")).toBe("登录");
@@ -101,5 +104,29 @@ describe("Simplified Chinese", () => {
     expect(instance.t("modelsAndEndpoints.page.tabs.add")).toBe(en.modelsAndEndpoints.page.tabs.add);
     await instance.changeLanguage("en");
     expect(instance.t("login.form.title")).toBe(en.login.form.title);
+  });
+
+  it("renders core management pages in Chinese and keeps machine CSV headers stable", async () => {
+    const instance = createInstance();
+    await instance.init({
+      lng: "zh-CN",
+      fallbackLng: "en",
+      resources: { en: { translation: en }, "zh-CN": { translation: zh } },
+    });
+
+    for (const [key, label] of [
+      ["apiKeys.virtualKeysTable.title", "虚拟密钥"],
+      ["modelsAndEndpoints.page.title", "模型管理"],
+      ["logs.detail.drawer.title", "请求详情"],
+      ["usage.viewSelect.title", "用量"],
+      ["teams.teamInfo.settings.title", "团队设置"],
+      ["organizations.view.settings.title", "组织设置"],
+      ["users.createUser.title", "邀请用户"],
+      ["budgets.panel.title", "预算"],
+      ["costOptimization.view.title", "成本优化"],
+    ] as const) {
+      expect(instance.t(key)).toBe(label);
+    }
+    expect(zh.costTracking.exportReport.csv).toEqual(en.costTracking.exportReport.csv);
   });
 });

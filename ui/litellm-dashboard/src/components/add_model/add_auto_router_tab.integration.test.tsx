@@ -13,10 +13,13 @@ import {
   fireEvent,
   testQueryClient,
   act,
+  cleanup,
   chooseSelectOption,
 } from "../../../tests/test-utils";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import i18n from "@/i18n/i18n";
+import { LOCALES } from "@/i18n/languages";
 import AddAutoRouterTab from "./add_auto_router_tab";
 import { toast } from "@/lib/toast";
 import { handleAddAutoRouterSubmit, handleAddSwitchyardSubmit } from "./handle_add_auto_router_submit";
@@ -201,6 +204,62 @@ describe("AddAutoRouterTab", () => {
     mockFetchAllModelDeployments.mockResolvedValue([]);
     getRouterSettingsCall.mockResolvedValue({ current_values: {} });
     vi.mocked(modelCostMap).mockResolvedValue({});
+  });
+
+  it("submits unchanged Switchyard identifiers and prompts from the Chinese form", async () => {
+    const messages = await LOCALES.get("zh-CN")?.();
+    if (messages) i18n.addResourceBundle("zh-CN", "translation", messages);
+    await i18n.changeLanguage("zh-CN");
+    try {
+      renderWithProviders(<Harness />);
+      fireEvent.click(
+        screen.getByRole("button", {
+          name: i18n.t("addModel.autoRouterSimpleSetup.advancedConfiguration"),
+          exact: true,
+        }),
+      );
+      fireEvent.click(screen.getByRole("radio", { name: "Switchyard", exact: true }));
+      expect(screen.getByText("阶段路由（Stage Router）", { exact: true })).toBeVisible();
+
+      const user = userEvent.setup();
+      await chooseSelectOption(user, screen.getByRole("combobox", { name: "选择偏好" }), "质量优先（实验性）");
+      await user.click(screen.getByText("高级设置", { exact: true }));
+      fireEvent.change(screen.getByLabelText("近期窗口"), { target: { value: "7" } });
+      fireEvent.change(screen.getByLabelText("工具语义"), {
+        target: { value: '{"observe":["read_file"],"mutate":["edit_file"]}' },
+      });
+      fireEvent.click(screen.getByRole("switch", { name: "分类器", exact: true }));
+      await chooseSelectOption(user, screen.getByRole("combobox", { name: "响应格式" }), "JSON 对象");
+      fireEvent.change(screen.getByLabelText("分类器提示词"), {
+        target: { value: "Keep the original prompt 原始提示词" },
+      });
+      fireEvent.change(screen.getByLabelText(i18n.t("addModel.addAutoRouterTab.routerName"), { exact: false }), {
+        target: { value: "stage-test" },
+      });
+      fireEvent.click(
+        screen.getByRole("button", { name: i18n.t("addModel.addAutoRouterTab.addAutoRouter"), exact: true }),
+      );
+
+      await waitFor(() => expect(handleAddSwitchyardSubmit).toHaveBeenCalledOnce());
+      expect(vi.mocked(handleAddSwitchyardSubmit).mock.calls[0][0]).toMatchObject({
+        name: "stage-test",
+        config: {
+          options: {
+            picker: "capable_first",
+            recent_window: 7,
+            tool_semantics: { observe: ["read_file"], mutate: ["edit_file"] },
+          },
+          classifier: {
+            kind: "llm",
+            response_format_type: "json_object",
+            prompt: "Keep the original prompt 原始提示词",
+          },
+        },
+      });
+    } finally {
+      cleanup();
+      await i18n.changeLanguage("en");
+    }
   });
 
   it("swaps the tiers for the Switchyard fields and saves Switchyard through the same form", async () => {

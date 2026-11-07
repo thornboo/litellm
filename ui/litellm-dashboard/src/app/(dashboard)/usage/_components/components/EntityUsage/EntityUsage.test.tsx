@@ -2,6 +2,10 @@ import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testi
 import userEvent from "@testing-library/user-event";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { useState, type ComponentProps, type ReactNode } from "react";
+import { createInstance } from "i18next";
+import { I18nextProvider } from "react-i18next";
+import en from "@/i18n/locales/en.json";
+import zh from "@/i18n/locales/zh-CN.json";
 import { useInfiniteUsers } from "@/app/(dashboard)/hooks/users/useUsers";
 import useTeams from "@/app/(dashboard)/hooks/useTeams";
 import * as networking from "@/components/networking";
@@ -594,6 +598,27 @@ describe("EntityUsage", () => {
       const spendElements = screen.getAllByText("$100.50");
       expect(spendElements.length).toBeGreaterThan(0);
     });
+  });
+
+  it("translates entity labels while requesting the original entity kind", async () => {
+    const i18n = createInstance();
+    await i18n.init({
+      lng: "zh-CN",
+      fallbackLng: "en",
+      resources: { en: { translation: en }, "zh-CN": { translation: zh } },
+    });
+    render(
+      <I18nextProvider i18n={i18n}>
+        <StatefulEntityUsage {...defaultProps} />
+      </I18nextProvider>,
+    );
+
+    expect(await screen.findByRole("columnheader", { name: "标签" })).toBeInTheDocument();
+    expect(screen.getByText("标签支出概览")).toBeInTheDocument();
+    expect(screen.getByText("每个标签的支出")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "追踪每个标签的费用" })).toBeInTheDocument();
+    expect(screen.getByText("按标签筛选")).toBeInTheDocument();
+    expect(mockDailyActivityAggregatedCall).toHaveBeenCalledWith("tag", expect.anything());
   });
 
   it("feeds the per-user spend card every visible team except the dashboard team, only for teams", async () => {

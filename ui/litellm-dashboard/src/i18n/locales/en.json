@@ -1,4 +1,49 @@
 {
+  "switchyardConfig": {
+    "nameRequired": "Enter a router name",
+    "cannotSelectSelf": "The router cannot select itself",
+    "concreteModelRequired": "Select a concrete model",
+    "judgeRequired": "Select a judge when the classifier is enabled",
+    "toolSemanticsError": "Tool semantics must be JSON mapping observe, mutate, plan, or new to arrays of tool names",
+    "heuristic": "Heuristic",
+    "stageRouter": "Stage Router",
+    "bias": "Bias",
+    "costFirst": "Cost-first",
+    "qualityFirst": "Quality-first (experimental)",
+    "uncalibratedBias": "Switchyard has not benchmarked this bias, so it has no calibrated confidence thresholds.",
+    "capableModel": "Capable model",
+    "efficientModel": "Efficient model",
+    "selectModel": "Select a model",
+    "classifier": "Classifier",
+    "classifierHelp": "Ask a judge model when the tool history does not give a confident routing decision.",
+    "classifierType": "Classifier type",
+    "llmJudge": "LLM judge",
+    "decisionModel": "Decision model",
+    "judgeModel": "Judge model",
+    "selectDecisionModel": "Select a decision model",
+    "selectJudgeModel": "Select a judge model",
+    "confidenceThreshold": "Confidence threshold",
+    "confidenceWithJudge": "Below this confidence, use the judge model. Critical errors can still select the capable model.",
+    "confidenceWithBias": "Below this confidence, use the bias’s default model. Critical errors can still select the capable model.",
+    "advancedSettings": "Advanced settings",
+    "stage": "Stage",
+    "recentWindow": "Recent window",
+    "libraryDefault": "Library default",
+    "toolSemantics": "Tool semantics",
+    "advantageCutoff": "Advantage cutoff",
+    "advantageHelp": "Route to the capable model when the decision model’s advantage probability is above this value.",
+    "decisionInstructions": "Decision instructions",
+    "defaultInstructions": "Use Switchyard’s built-in instructions",
+    "capabilityThreshold": "Capability threshold",
+    "thresholdStep": "Threshold step",
+    "maxOutputTokens": "Maximum output tokens",
+    "recentTurnWindow": "Recent turn window",
+    "responseFormat": "Response format",
+    "jsonSchema": "JSON schema",
+    "jsonObject": "JSON object",
+    "classifierPrompt": "Classifier prompt",
+    "defaultPrompt": "Use Switchyard’s built-in prompt"
+  },
   "format": {
     "number": "{{val, number}}",
     "compactNumber": "{{val, compact}}",
@@ -2375,6 +2420,10 @@
       }
     },
     "estimatedOutputTokens": {
+      "entities": {
+        "key": "key",
+        "team": "team"
+      },
       "invalidPerModel": "Enter a JSON object of positive integers, e.g. {\"gpt-4\": 4096}",
       "invalidPositive": "Enter a positive integer",
       "adminOnlyTooltip": "Only a proxy admin can change this. It sets how many output tokens the rate limiter reserves for a request that omits max_tokens, which is charged against the team and organization TPM windows.",
@@ -20381,5 +20430,14 @@
       "query": "query",
       "request": "request"
     }
+  },
+  "switchyardForm": {
+    "description": "Route between a capable and an efficient model using the conversation’s tool history.",
+    "modelsLoadFailed": "Unable to load available models.",
+    "invalidStoredConfig": "The stored Switchyard configuration is invalid. Correct it before saving.",
+    "saveFailed": "Unable to save Switchyard router",
+    "routerName": "Router name",
+    "saving": "Saving…",
+    "saveChanges": "Save changes"
   }
 }

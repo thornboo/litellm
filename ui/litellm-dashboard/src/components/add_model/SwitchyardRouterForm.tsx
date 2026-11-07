@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ interface FieldsProps {
 }
 
 export function SwitchyardModelFields({ accessToken, routerName, value, onChange, onToolSemanticsError }: FieldsProps) {
+  const { t } = useTranslation();
   const { data: models = [], isError } = useQuery({
     queryKey: ["availableModels", "switchyard", accessToken],
     queryFn: () => fetchAvailableModels(accessToken),
@@ -37,12 +39,10 @@ export function SwitchyardModelFields({ accessToken, routerName, value, onChange
   const toChoice = (model: { model_group: string }) => ({ value: model.model_group, label: model.model_group });
   return (
     <div className="space-y-6">
-      <p className="text-sm text-muted-foreground">
-        Route between a capable and an efficient model using the conversation’s tool history.
-      </p>
+      <p className="text-sm text-muted-foreground">{t("switchyardForm.description")}</p>
       {isError && (
         <p role="alert" className="text-sm text-destructive">
-          Unable to load available models.
+          {t("switchyardForm.modelsLoadFailed")}
         </p>
       )}
       <SwitchyardConfigFields
@@ -110,13 +110,12 @@ interface Props {
 }
 
 export default function SwitchyardRouterForm({ accessToken, onSuccess, initial }: Props) {
+  const { t } = useTranslation();
   const id = useId();
   const parsed = switchyardConfigSchema.safeParse(initial.config);
   const [config, setConfig] = useState<SwitchyardConfig>(parsed.success ? parsed.data : emptySwitchyardConfig());
   const [name, setName] = useState(initial.name);
-  const [error, setError] = useState<string | null>(
-    parsed.success ? null : "The stored Switchyard configuration is invalid. Correct it before saving.",
-  );
+  const [error, setError] = useState<string | null>(parsed.success ? null : t("switchyardForm.invalidStoredConfig"));
   const [toolError, setToolError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const save = async () => {
@@ -135,7 +134,7 @@ export default function SwitchyardRouterForm({ accessToken, onSuccess, initial }
         switchyard_router_config: payload.litellm_params.switchyard_router_config,
       });
     } catch (failure) {
-      setError(failure instanceof Error ? failure.message : "Unable to save Switchyard router");
+      setError(failure instanceof Error ? failure.message : t("switchyardForm.saveFailed"));
     } finally {
       setSaving(false);
     }
@@ -150,7 +149,7 @@ export default function SwitchyardRouterForm({ accessToken, onSuccess, initial }
     >
       <div className="space-y-2">
         <label htmlFor={`${id}-name`} className="text-sm font-medium">
-          Router name
+          {t("switchyardForm.routerName")}
         </label>
         <Input id={`${id}-name`} value={name} onChange={(event) => setName(event.target.value)} />
       </div>
@@ -168,7 +167,7 @@ export default function SwitchyardRouterForm({ accessToken, onSuccess, initial }
       )}
       <div className="flex justify-end">
         <Button type="submit" disabled={saving || Boolean(toolError)}>
-          {saving ? "Saving…" : "Save changes"}
+          {saving ? t("switchyardForm.saving") : t("switchyardForm.saveChanges")}
         </Button>
       </div>
     </form>

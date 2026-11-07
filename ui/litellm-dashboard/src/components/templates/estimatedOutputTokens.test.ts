@@ -1,9 +1,25 @@
 import { describe, expect, it } from "vitest";
+import i18n from "@/i18n/i18n";
+import { LOCALES } from "@/i18n/languages";
 
-import { estimateFields, estimateRules, withNormalizedEstimates } from "./estimatedOutputTokens";
+import { estimateFields, estimateRules, estimateTooltips, withNormalizedEstimates } from "./estimatedOutputTokens";
 
 const expectRejects = async (value: unknown) =>
   expect(estimateRules.perModel.validator(null, value)).rejects.toThrow(/JSON object of positive integers/);
+
+describe("estimateTooltips", () => {
+  it.each([
+    ["key", "密钥"],
+    ["team", "团队"],
+  ] as const)("localizes the %s display noun without changing its identifier", async (entity, label) => {
+    const messages = await LOCALES.get("zh-CN")?.();
+    if (messages) i18n.addResourceBundle("zh-CN", "translation", messages);
+    const tooltips = estimateTooltips(true, entity, i18n.getFixedT("zh-CN"));
+
+    expect(tooltips.estimate).toContain(`覆盖此${label}`);
+    expect(tooltips.perModel).toContain(`优先于${label}整体`);
+  });
+});
 
 describe("estimateFields", () => {
   it("renders a stored per-model map as editable JSON text", () => {

@@ -38,10 +38,17 @@ export const estimateTooltips = (
   canEdit: boolean,
   entity: "key" | "team" = "key",
   t: TFunction = i18n.t.bind(i18n),
-) => ({
-  estimate: canEdit ? t("keyDetail.estimatedOutputTokens.estimateTooltip", { entity }) : t(ADMIN_ONLY_TOOLTIP),
-  perModel: canEdit ? t("keyDetail.estimatedOutputTokens.perModelTooltip", { entity }) : t(ADMIN_ONLY_TOOLTIP),
-});
+) => {
+  const entityLabel = t(`keyDetail.estimatedOutputTokens.entities.${entity}`);
+  return {
+    estimate: canEdit
+      ? t("keyDetail.estimatedOutputTokens.estimateTooltip", { entity: entityLabel })
+      : t(ADMIN_ONLY_TOOLTIP),
+    perModel: canEdit
+      ? t("keyDetail.estimatedOutputTokens.perModelTooltip", { entity: entityLabel })
+      : t(ADMIN_ONLY_TOOLTIP),
+  };
+};
 
 export const estimateChecks = {
   perModel: {

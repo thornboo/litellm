@@ -1,6 +1,16 @@
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { act, renderWithProviders, screen, testQueryClient, waitFor } from "../../../tests/test-utils";
+import {
+  act,
+  cleanup,
+  fireEvent,
+  renderWithProviders,
+  screen,
+  testQueryClient,
+  waitFor,
+} from "../../../tests/test-utils";
+import i18n from "@/i18n/i18n";
+import { LOCALES } from "@/i18n/languages";
 import type { Team } from "../key_team_helpers/key_list";
 import { keyCreateCall, keyCreateServiceAccountCall, modelAvailableCall, userFilterUICall } from "../networking";
 import { toast } from "@/lib/toast";
@@ -200,7 +210,7 @@ const renderCreateKey = (props: Partial<React.ComponentProps<typeof CreateKey>> 
 const openModal = async (props: Partial<React.ComponentProps<typeof CreateKey>> = {}) => {
   const view = renderCreateKey(props);
   await userEvent.click(screen.getByTestId("create-key-button"));
-  await screen.findByRole("button", { name: /^create key$/i });
+  await screen.findByRole("button", { name: i18n.t("createKey.submit"), exact: true });
   return view;
 };
 
@@ -212,11 +222,13 @@ const openSection = async (name: RegExp) => {
 };
 
 const nameTheKey = async (alias = "contract-key") => {
-  await userEvent.type(await screen.findByLabelText(/Key Name/), alias);
+  fireEvent.change(await screen.findByLabelText(i18n.t("createKey.keyName.label"), { exact: false }), {
+    target: { value: alias },
+  });
 };
 
 const submit = async () => {
-  await userEvent.click(screen.getByRole("button", { name: /^create key$/i }));
+  await userEvent.click(screen.getByRole("button", { name: i18n.t("createKey.submit"), exact: true }));
 };
 
 const createdPayload = async () => {
@@ -227,7 +239,8 @@ const createdPayload = async () => {
 };
 
 describe("CreateKey", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
+    await i18n.changeLanguage("en");
     testQueryClient.clear();
     state.authorized = { accessToken: "test-token", userId: "test-user-id", userRole: "Admin", premiumUser: false };
     state.can = {};
@@ -258,13 +271,22 @@ describe("CreateKey", () => {
     );
   });
 
-  afterEach(() => {
+  afterEach(async () => {
+    cleanup();
+    await i18n.changeLanguage("en");
     vi.unstubAllGlobals();
   });
 
   describe("submit payload contract", () => {
-    it("sends only the always-mounted fields when every collapsible section is closed", async () => {
+    it.each([
+      { language: "en", button: "Create Key" },
+      { language: "zh-CN", button: "创建密钥" },
+    ])("keeps the key creation payload unchanged in $language", async ({ language, button }) => {
+      const messages = await LOCALES.get(language)?.();
+      if (messages) i18n.addResourceBundle(language, "translation", messages);
+      await i18n.changeLanguage(language);
       await openModal();
+      expect(screen.getByRole("button", { name: button, exact: true })).toBeInTheDocument();
       await nameTheKey();
       await submit();
 

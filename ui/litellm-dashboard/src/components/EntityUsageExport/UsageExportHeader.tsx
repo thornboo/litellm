@@ -60,7 +60,9 @@ const UsageExportHeader: React.FC<UsageExportHeaderProps> = ({
   const optionValues = filterOptions.map((option) => option.value);
   const labelOf = (value: string) => filterOptions.find((option) => option.value === value)?.label ?? value;
   const hasNoOptions = filterOptions.length === 0;
-  const emptyPlaceholder = t("usage.export.header.noOptionsPlaceholder", { entityType });
+  const emptyPlaceholder = t("usage.export.header.noOptionsPlaceholder", {
+    entityType: t(`usage.export.modal.entities.${entityType}`).toLowerCase(),
+  });
   // A selection carried over from a range that did have options still scopes
   // the data below, so the control has to stay usable long enough to clear it.
   const isFilterDisabled = hasNoOptions && selectedFilters.length === 0;

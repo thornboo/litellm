@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import i18n from "@/i18n/i18n";
+import { LOCALES } from "@/i18n/languages";
 import {
   emptySwitchyardConfig,
   isDecisionModelMode,
@@ -12,6 +14,31 @@ import {
 } from "./switchyard_config";
 
 describe("Switchyard configuration", () => {
+  it("localizes validation while preserving model aliases and the router payload", async () => {
+    const messages = await LOCALES.get("zh-CN")?.();
+    if (messages) i18n.addResourceBundle("zh-CN", "translation", messages);
+    await i18n.changeLanguage("zh-CN");
+    try {
+      const config = { ...emptySwitchyardConfig(), models: { capable: "strong", efficient: "fast" } };
+      expect(switchyardSaveError("  ", config)).toBe("请输入路由器名称");
+      expect(switchyardSaveError("strong", config)).toBe("路由器不能选择自身作为目标模型");
+      expect(
+        switchyardSaveError("route", { ...config, models: { ...config.models, capable: "auto_router/other" } }),
+      ).toBe("请选择具体模型");
+      expect(switchyardSaveError("route", { ...toggleClassifier(config, true), models: config.models })).toBe(
+        "启用分类器时请选择评判模型",
+      );
+      expect(switchyardRouterPayload(" route ", config)).toMatchObject({
+        model_name: "route",
+        litellm_params: {
+          model: "auto_router/switchyard",
+          switchyard_router_config: { models: config.models, options: { picker: "efficient_first" } },
+        },
+      });
+    } finally {
+      await i18n.changeLanguage("en");
+    }
+  });
   it("changes the confidence default when the classifier is toggled", () => {
     const config = emptySwitchyardConfig();
     expect(stageConfidence(config)).toBe(0.5);
