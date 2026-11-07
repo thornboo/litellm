@@ -8128,7 +8128,8 @@
       "toggleHideAria": "Toggle hide {{name}}",
       "language": {
         "label": "Language",
-        "fallbackNote": "Missing translations show in English. <githubLink>Help translate</githubLink>"
+        "fallbackNote": "Missing translations show in English. <githubLink>Help translate</githubLink>",
+        "reloadNote": "Changing language reloads the page. Unsaved input will be lost."
       },
       "changePassword": "Change Password",
       "logout": "Logout"

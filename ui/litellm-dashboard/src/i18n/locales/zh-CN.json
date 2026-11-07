@@ -1,0 +1,1063 @@
+{
+  "format": {
+    "number": "{{val, number}}",
+    "compactNumber": "{{val, compact}}",
+    "usd": "{{val, usd}}",
+    "relativeTime": "{{val, relativetime}}",
+    "date": "{{val, date}}",
+    "monthDay": "{{val, monthday}}",
+    "monthDayTime": "{{val, monthdaytime}}",
+    "timestamp": "{{val, timestamp}}",
+    "numericDateTime": "{{val, numericdatetime}}"
+  },
+  "shell": {
+    "nav": {
+      "groups": {
+        "aiGateway": "AI 网关",
+        "observability": "可观测性",
+        "accessControl": "访问控制",
+        "developerTools": "开发工具",
+        "settings": "设置"
+      },
+      "sections": {
+        "aiGateway": "AI 网关",
+        "observability": "可观测性",
+        "accessControl": "访问控制",
+        "developerTools": "开发工具",
+        "settings": "设置"
+      },
+      "items": {
+        "home": "首页",
+        "virtualKeys": "虚拟密钥",
+        "playground": "调试平台",
+        "modelsAndEndpoints": "模型与端点",
+        "agentic": "智能体资源",
+        "agents": "智能体",
+        "workflowRuns": "工作流运行记录",
+        "memory": "记忆",
+        "mcpServers": "MCP 服务器",
+        "skills": "技能中心",
+        "guardrails": "安全护栏",
+        "policies": "策略",
+        "tools": "工具",
+        "searchTools": "搜索工具",
+        "vectorStores": "向量存储",
+        "toolPolicies": "工具策略",
+        "usage": "用量",
+        "alerts": "告警",
+        "modelLeaderboard": "模型排行榜",
+        "costOptimization": "成本优化",
+        "logs": "日志",
+        "lens": "Lens",
+        "guardrailsMonitor": "安全护栏监控",
+        "teams": "团队",
+        "projects": "项目",
+        "internalUsers": "内部用户",
+        "organizations": "组织",
+        "accessGroups": "访问组",
+        "budgets": "预算",
+        "apiReference": "API 参考",
+        "aiHub": "AI 中心",
+        "learningResources": "学习资源",
+        "responseCache": "响应缓存",
+        "experimental": "实验功能",
+        "prompts": "提示词",
+        "apiPlayground": "API 调试平台",
+        "tagManagement": "标签管理",
+        "settings": "设置",
+        "routerSettings": "路由设置",
+        "loggingAndAlerts": "日志与告警",
+        "adminSettings": "管理设置",
+        "costTracking": "费用追踪",
+        "uiTheme": "界面主题",
+        "telemetry": "遥测"
+      },
+      "homeLink": "LiteLLM 首页"
+    },
+    "pageDescriptions": {
+      "home": "查看用量概览、近期发布和博客动态",
+      "apiKeys": "管理用于 API 访问和身份验证的虚拟密钥",
+      "llmPlayground": "通过交互式调试平台测试 LLM 请求",
+      "models": "配置和管理 LLM 模型与端点",
+      "agents": "创建和管理 AI 智能体",
+      "agentic": "管理智能体、工作流运行记录和记忆等资源",
+      "workflows": "追踪和检查持久化工作流的运行历史",
+      "mcpServers": "配置模型上下文协议（MCP）服务器",
+      "memory": "查看和管理存储在 /v1/memory 下的智能体记忆条目",
+      "guardrails": "配置内容审核和安全护栏",
+      "policies": "定义访问控制和使用策略",
+      "searchTools": "配置 RAG 搜索和检索工具",
+      "toolPolicies": "配置工具使用策略和权限",
+      "vectorStores": "管理用于嵌入向量的向量数据库",
+      "newUsage": "查看用量分析和指标",
+      "alerts": "查看并处理密钥和团队涉及的模型弃用告警",
+      "costOptimization": "追踪和配置提示词压缩、缓存及自动路由等成本优化功能",
+      "modelInsights": "模型排行榜，比较本网关的用量、费用、Token 和任务分布",
+      "logs": "查看请求和响应日志",
+      "lens": "查看智能体活动，结合证据分析行为模式",
+      "guardrailsMonitor": "监控安全护栏性能并查看日志",
+      "users": "管理内部用户账号和权限",
+      "teams": "创建和管理团队以控制访问权限",
+      "organizations": "管理组织及其成员",
+      "projects": "管理团队内的项目",
+      "accessGroups": "管理基于角色权限的访问组",
+      "budgets": "设置和监控支出预算",
+      "apiRef": "浏览 API 文档和端点",
+      "modelHubTable": "探索可用的 AI 模型和供应商",
+      "learningResources": "查看教程和文档",
+      "caching": "配置响应缓存和协调 Redis 设置",
+      "transformRequest": "配置请求转换规则",
+      "costTracking": "追踪和分析 API 费用",
+      "uiTheme": "自定义管理界面外观",
+      "tagManagement": "通过标签组织资源",
+      "prompts": "管理提示词模板及其版本",
+      "skills": "在技能中心注册和共享可复用的智能体技能",
+      "routerSettings": "配置路由和负载均衡设置",
+      "telemetry": "选择此代理收集的匿名使用遥测数据，并查看最近一次报告",
+      "loggingAndAlerts": "配置日志和告警",
+      "adminPanel": "访问管理面板和设置"
+    },
+    "sidebarAccountMenu": {
+      "toggles": {
+        "newBadge": {
+          "label": "隐藏新功能标记",
+          "ariaLabel": "切换新功能标记的显示状态"
+        },
+        "prompts": {
+          "label": "隐藏所有提示",
+          "ariaLabel": "切换所有提示的显示状态"
+        },
+        "blogPosts": {
+          "label": "隐藏博客文章",
+          "ariaLabel": "切换博客文章的显示状态"
+        },
+        "bouncingIcon": {
+          "label": "隐藏跳动图标",
+          "ariaLabel": "切换跳动图标的显示状态"
+        }
+      },
+      "triggerLabel": "账号菜单，角色为 {{role}}，当前登录账号为 {{identity}}",
+      "unknownRole": "未知角色",
+      "unknownIdentity": "未知",
+      "thanks": "感谢使用 LiteLLM！",
+      "tier": "版本",
+      "premium": "高级版",
+      "upgradeHint": "升级到高级版以使用高级功能",
+      "standard": "标准版",
+      "role": "角色",
+      "email": "邮箱",
+      "copyEmail": "复制邮箱",
+      "userId": "用户 ID",
+      "copyUserId": "复制用户 ID",
+      "hideAria": "隐藏 <name/>",
+      "toggleHideAria": "切换 {{name}} 的显示状态",
+      "language": {
+        "label": "语言",
+        "fallbackNote": "未翻译的内容将以英文显示。<githubLink>协助翻译</githubLink>",
+        "reloadNote": "切换语言会刷新页面，未保存的输入将丢失。"
+      },
+      "changePassword": "修改密码",
+      "logout": "退出登录"
+    },
+    "sidebarUsageCard": {
+      "title": "企业版用量",
+      "activePlan": "当前方案",
+      "loading": "加载中…",
+      "seats": "席位",
+      "teams": "团队",
+      "meterValue": "已用 {{used}}，共 {{total}}"
+    },
+    "navbar": {
+      "expandSidebar": "展开侧栏",
+      "collapseSidebar": "收起侧栏",
+      "logoAlt": "LiteLLM 标志",
+      "thanks": "感谢使用 LiteLLM！",
+      "productDocs": "产品文档"
+    },
+    "viewSwitcher": {
+      "chat": "对话",
+      "aiGateway": "AI 网关",
+      "chatDescription": "使用 LLM、MCP 和智能体的对话界面",
+      "chatDisabled": "管理员可在设置中启用",
+      "moyaiDescription": "云端编程智能体",
+      "trigger": "切换工作区，当前为 {{workspace}}"
+    },
+    "navDisplayName": {
+      "account": "账号"
+    },
+    "docsLink": {
+      "label": "文档"
+    },
+    "userMenu": {
+      "premium": "高级版",
+      "standard": "标准版",
+      "upgradeHint": "升级到高级版以使用高级功能",
+      "userId": "用户 ID",
+      "copyUserId": "复制用户 ID",
+      "role": "角色",
+      "hideNewBadges": "隐藏新功能标记",
+      "toggleHideNewBadges": "切换新功能标记的显示状态",
+      "hidePrompts": "隐藏所有提示",
+      "toggleHidePrompts": "切换所有提示的显示状态",
+      "hideBlogPosts": "隐藏博客文章",
+      "toggleHideBlogPosts": "切换博客文章的显示状态",
+      "hideBouncingIcon": "隐藏跳动图标",
+      "toggleHideBouncingIcon": "切换跳动图标的显示状态",
+      "hideAgent": "隐藏 {{agent}}",
+      "toggleHideAgent": "切换 {{agent}} 的显示状态",
+      "triggerAria": "账号菜单，角色为 {{role}}，当前登录账号为 {{identity}}",
+      "unknownRole": "未知角色",
+      "unknownIdentity": "未知",
+      "changePassword": "修改密码",
+      "logout": "退出登录"
+    },
+    "notifications": {
+      "autoRouter": {
+        "title": "LiteLLM 自动路由",
+        "description": "将每个请求路由到能够处理它的最低成本模型，无需修改提示词。",
+        "link": "查看文档"
+      },
+      "release": {
+        "newFeatures_one": "{{count}} 项新功能",
+        "newFeatures_other": "{{count}} 项新功能",
+        "fixes_one": "{{count}} 项修复",
+        "fixes_other": "{{count}} 项修复",
+        "otherUpdates_one": "以及 {{count}} 项其他更新",
+        "otherUpdates_other": "以及 {{count}} 项其他更新"
+      },
+      "upgrade": {
+        "title": "LiteLLM v{{version}} 已发布",
+        "description": "{{summary}}。当前版本为 v{{current}}",
+        "link": "查看发布说明"
+      },
+      "announcement": {
+        "markAsRead": "标为已读"
+      },
+      "bell": {
+        "triggerDeprecations_one": "通知，有 {{count}} 条模型弃用告警需要处理",
+        "triggerDeprecations_other": "通知，有 {{count}} 条模型弃用告警需要处理",
+        "deprecationsTitle": "模型弃用",
+        "viewAllDeprecations": "查看全部 {{total}} 条",
+        "deprecationsDescription": "密钥和团队涉及的模型迁移。",
+        "announcementsHeading": "公告",
+        "viewDeprecations": "查看模型弃用信息",
+        "trigger": "通知",
+        "triggerUnread": "通知，{{unread}} 条未读",
+        "title": "最新动态"
+      }
+    },
+    "dashboardCommunityLinks": {
+      "label": "社区链接",
+      "joinSlack": "加入 Slack",
+      "joinDiscord": "加入 Discord",
+      "github": "LiteLLM 的 GitHub 仓库"
+    },
+    "dashboardResources": {
+      "links": {
+        "docs": "文档",
+        "releases": "版本发布",
+        "blog": "博客"
+      },
+      "latestPosts": "最新文章",
+      "loadingPosts": "正在加载文章…",
+      "retryPosts": "重新加载文章",
+      "helpAndResources": "帮助与资源"
+    },
+    "blogDropdown": {
+      "loading": "加载中",
+      "failed": "文章加载失败",
+      "retry": "重试",
+      "empty": "暂无文章",
+      "viewAll": "查看全部文章",
+      "trigger": "博客"
+    },
+    "communityButtons": {
+      "label": "社区链接",
+      "slackLabel": "加入 Slack",
+      "slackTooltip": "LiteLLM Slack 社区",
+      "githubLabel": "LiteLLM 的 GitHub 仓库",
+      "githubTooltip": "LiteLLM 的 GitHub 仓库"
+    },
+    "workerDropdown": {
+      "trigger": "切换工作节点，当前为 {{worker}}",
+      "label": "工作节点",
+      "searchLabel": "搜索工作节点",
+      "searchPlaceholder": "搜索工作节点…",
+      "empty": "没有匹配的工作节点"
+    },
+    "commandPalette": {
+      "title": "命令面板",
+      "description": "搜索页面、操作或虚拟密钥",
+      "types": {
+        "key": "密钥",
+        "page": "页面",
+        "action": "操作"
+      },
+      "empty": {
+        "keyError": "无法搜索密钥",
+        "noRecentKeys": "暂无最近使用的密钥",
+        "noResults": "没有与“{{query}}”匹配的结果"
+      },
+      "groups": {
+        "pages": "页面",
+        "actions": "操作",
+        "keys": "密钥",
+        "recentKeys": "最近使用的密钥"
+      },
+      "searchKeys": {
+        "title": "搜索虚拟密钥",
+        "subtitle": "通过别名或 ID 查找密钥"
+      },
+      "unnamedKey": "未命名密钥",
+      "filterKeys": {
+        "title": "在密钥表中筛选“{{query}}”",
+        "subtitle": "打开虚拟密钥页面并应用此搜索条件"
+      },
+      "label": "搜索",
+      "virtualKeys": "虚拟密钥",
+      "placeholder": {
+        "keys": "通过别名或 ID 搜索密钥…",
+        "global": "搜索页面和操作…"
+      },
+      "searching": "搜索中…"
+    },
+    "commandPaletteUtils": {
+      "ctrlShortcut": "Ctrl K"
+    },
+    "shortcutLabel": {
+      "ctrlShortcut": "Ctrl K"
+    },
+    "commandPaletteHint": {
+      "keys": "<press>按下</press><shortcut/><action>搜索密钥</action>",
+      "global": "<press>按下</press><shortcut/><action>搜索或跳转到页面</action>",
+      "dismiss": "关闭搜索提示"
+    },
+    "commandPaletteTrigger": {
+      "keys": "搜索密钥…",
+      "global": "搜索或跳转…",
+      "search": "搜索"
+    },
+    "deploymentHealth": {
+      "activeWarnings_one": "{{count}} 条待处理警告",
+      "activeWarnings_other": "{{count}} 条待处理警告",
+      "icon": {
+        "withCount": "部署健康状态，{{warnings}}",
+        "label": "部署健康状态"
+      },
+      "link": {
+        "label": "部署健康状态"
+      },
+      "banner": {
+        "label": "部署告警",
+        "review": "查看"
+      }
+    },
+    "deploymentWarnings": {
+      "envCredentialLogin": {
+        "title": "已启用环境变量凭据登录",
+        "fix": "持有 <username/>/<password/> 的任何人均可通过共享的固定凭据以代理管理员身份登录，未设置 <password/> 时则使用主密钥。请创建使用独立密码的普通管理员账号，然后设置 <setting/>"
+      },
+      "noRedis": {
+        "title": "未配置 Redis",
+        "fix": "此代理运行了多个工作进程，或无法确认工作进程数量。未配置 Redis 时，限流、预算、路由状态和缓存失效均由各工作进程独立处理，因此每个进程会分别执行限额，可能导致支出超限"
+      },
+      "detailedDebug": {
+        "title": "已启用详细调试日志",
+        "fix": "<loglevel/> 会记录大量诊断信息，并显著降低代理性能。请仅在排查问题时使用，生产环境应关闭"
+      },
+      "license": {
+        "expiresToday": "将于今天到期",
+        "expiresIn_one": "将于 {{count}} 天后到期",
+        "expiresIn_other": "将于 {{count}} 天后到期",
+        "expiredTitle": "LiteLLM 企业版许可证已于 {{date}} 到期",
+        "expiredFix": "企业版功能已停用。请联系 <sales/> 恢复访问",
+        "expiringTitle": "LiteLLM 企业版许可证{{countdown}}（{{date}}）",
+        "expiringFix": "请在到期前续订以保留企业版功能。请联系 <sales/>"
+      }
+    },
+    "deploymentHealthPanel": {
+      "snooze": {
+        "oneDay": "暂停提醒 1 天",
+        "sevenDays": "暂停提醒 7 天",
+        "thirtyDays": "暂停提醒 30 天",
+        "trigger": "暂停提醒",
+        "triggerAria": "暂停提醒 {{title}}",
+        "forever": "永久忽略"
+      },
+      "severity": {
+        "critical": "严重",
+        "warning": "警告"
+      },
+      "restore": {
+        "label": "恢复",
+        "aria": "恢复 {{title}}"
+      },
+      "ignoreMeta": {
+        "envVar": "由环境变量 <envvar/> 设置",
+        "until": "截至 {{time}}",
+        "byUser": "· 由 {{user}} 设置",
+        "since": "自 {{date}} 起 · 由 {{user}} 设置"
+      },
+      "ignoreStatus": {
+        "snoozed": "已暂停提醒",
+        "ignored": "已忽略"
+      },
+      "item": {
+        "docs": "查看文档"
+      },
+      "empty": {
+        "title": "暂无待处理警告",
+        "ignoredBelow": "已暂停提醒和已忽略的警告列在下方",
+        "description": "此代理的部署配置需要注意时，相关警告会显示在这里"
+      },
+      "body": {
+        "loadError": "无法加载部署警告",
+        "loading": "正在加载部署警告",
+        "ignoredGroup": "已忽略和已暂停提醒"
+      },
+      "sheet": {
+        "title": "部署健康状态",
+        "description": "此代理部署方式的相关警告"
+      }
+    },
+    "agentControlPlane": {
+      "plugin": "插件",
+      "configure": "请在设置中配置插件 URL"
+    },
+    "dashboardShell": {
+      "navigation": "导航",
+      "openNavigation": "打开导航"
+    },
+    "telemetryEnvNotice": {
+      "vetoed": "遥测已通过环境变量关闭",
+      "set": "已设置遥测环境变量",
+      "setOnProxy": "此代理已设置 {{variables}}。",
+      "readOnly": "这些变量会覆盖本页设置，移除变量之前，相关设置为只读。",
+      "editable": "仍可在此修改下方分组。"
+    },
+    "deprecationBanner": {
+      "title": "{{featureName}}已弃用",
+      "description": "<feature/> 将于近期移除。详情请参阅<discussion>弃用讨论</discussion>。"
+    },
+    "loadingScreen": {
+      "loading": "加载中…"
+    },
+    "logo": {
+      "alt": "{{name}} 标志"
+    },
+    "adminOnlyNotice": {
+      "description": "{{pageTitle}}仅对管理员开放。"
+    },
+    "pageHeader": {
+      "controls": "页面操作"
+    }
+  },
+  "login": {
+    "schema": {
+      "usernameRequired": "请输入用户名",
+      "passwordRequired": "请输入密码"
+    },
+    "ssoNotice": {
+      "title": "已启用单点登录（SSO）。加载本页时，LiteLLM 不再自动跳转到 SSO 登录流程。如需恢复自动跳转，请在环境配置中设置 <setting/>。",
+      "close": "关闭"
+    },
+    "adminDisabled": {
+      "title": "管理界面已禁用",
+      "description": "管理员已禁用管理界面。如需重新启用，请更新以下环境变量。"
+    },
+    "form": {
+      "title": "登录",
+      "subtitle": "访问 LiteLLM 管理界面。",
+      "defaultCredentials": {
+        "title": "默认凭据",
+        "body": "默认用户名为 <username/>，密码为你设置的 LiteLLM 代理 <masterkey/>。",
+        "help": "需要设置界面登录凭据或 SSO？请<docs>查看文档</docs>。"
+      },
+      "worker": {
+        "label": "工作节点",
+        "placeholder": "选择要连接的工作节点"
+      },
+      "username": {
+        "label": "用户名",
+        "placeholder": "请输入用户名"
+      },
+      "password": {
+        "label": "密码",
+        "placeholder": "请输入密码"
+      },
+      "loading": "加载中",
+      "submitting": "正在登录…",
+      "submit": "登录",
+      "sso": "使用 SSO 登录",
+      "ssoUnavailable": "请先配置 SSO，再使用 SSO 登录。"
+    }
+  },
+  "onboarding": {
+    "page": {
+      "loading": "加载中…"
+    },
+    "form": {
+      "errors": {
+        "sessionFailed": "无法启动会话，请重试。",
+        "submitFailed": "提交失败，请重试。"
+      }
+    },
+    "formBody": {
+      "schema": {
+        "passwordRequired": "注册时必须设置密码"
+      },
+      "resetPassword": "重置密码",
+      "signUp": "注册",
+      "resetDescription": "重置密码以访问管理界面。",
+      "signUpDescription": "激活你的用户账号以登录管理界面。",
+      "sso": {
+        "title": "SSO",
+        "description": "SSO 属于企业版功能。",
+        "trial": "免费试用"
+      },
+      "email": "电子邮箱",
+      "password": {
+        "label": "密码",
+        "resetHint": "请输入新密码",
+        "signUpHint": "为你的账号设置密码"
+      },
+      "loading": "加载中"
+    },
+    "errorView": {
+      "title": "邀请加载失败",
+      "description": "邀请链接可能无效或已过期。",
+      "back": "返回登录"
+    },
+    "loadingView": {
+      "label": "正在加载邀请"
+    }
+  },
+  "changePassword": {
+    "schema": {
+      "currentRequired": "请输入当前密码",
+      "newRequired": "请输入新密码",
+      "confirmRequired": "请再次输入新密码",
+      "mismatch": "两次输入的新密码不一致"
+    },
+    "form": {
+      "toasts": {
+        "updatedSignIn": "密码已更新，请使用新密码登录。",
+        "updated": "密码已更新"
+      },
+      "title": "修改密码",
+      "description": "输入当前密码并设置新密码。新密码必须符合此代理的密码策略。",
+      "resetRequired": "使用管理界面前必须修改密码，因为当前密码出现在已知的数据泄露中，或由管理员设置为临时密码。更新后将退出登录，你需要重新登录。",
+      "currentPassword": "当前密码",
+      "newPassword": "新密码",
+      "confirmNewPassword": "确认新密码",
+      "loading": "加载中",
+      "submit": "修改密码"
+    }
+  },
+  "home": {
+    "page": {
+      "title": "首页",
+      "createKey": "创建虚拟密钥",
+      "usageAria": "最近 {{days}} 天的用量",
+      "usageFailed": "用量加载失败",
+      "retry": "重试",
+      "whatsNew": "LiteLLM 最新动态",
+      "leaderboard": {
+        "title": "排行榜",
+        "subtitle": "最近 {{days}} 天的 Token 占比，以及该时段前后两半的变化"
+      }
+    },
+    "updatesFeed": {
+      "title": "动态",
+      "viewAll": "查看全部",
+      "failed": "文章加载失败",
+      "retry": "重试",
+      "empty": "暂无文章"
+    }
+  },
+  "shared": {
+    "credentialOptions": {
+      "none": "无"
+    },
+    "dateRangePresets": {
+      "today": "今天",
+      "last7Days": "最近 7 天",
+      "last30Days": "最近 30 天",
+      "monthToDate": "本月至今",
+      "yearToDate": "今年至今"
+    },
+    "searchBox": {
+      "operators": {
+        "equals": "等于",
+        "notEquals": "不等于",
+        "wildcardMatch": "通配符匹配",
+        "doesNotContain": "不包含"
+      },
+      "loadingResults": "正在加载结果",
+      "suggestions": "搜索建议",
+      "loadingValues": "正在加载可选值…",
+      "navigate": "移动",
+      "select": "选择",
+      "copyCommand": {
+        "copy": "复制为 curl 命令",
+        "copied": "已复制",
+        "failed": "复制失败"
+      },
+      "comparisonOperators": "比较运算符"
+    },
+    "inspector": {
+      "shortcutClose": "关闭",
+      "resizePanel": "调整{{noun}}面板大小",
+      "close": "关闭（Esc）",
+      "next": "下一个{{noun}}（J）",
+      "previous": "上一个{{noun}}（K）",
+      "enterFullScreen": "进入全屏",
+      "exitFullScreen": "退出全屏",
+      "closeNoun": "关闭{{noun}}（Esc）"
+    },
+    "inspectorTable": {
+      "collapse": "收起",
+      "expand": "展开"
+    },
+    "timeline": {
+      "tooltip": {
+        "range": "{{start}} 至 {{end}}",
+        "failed_one": "，{{count}} 次失败",
+        "failed_other": "，{{count}} 次失败",
+        "dragToZoom": "拖动以缩放"
+      },
+      "clearZoom": "重置时间缩放"
+    },
+    "durationInput": {
+      "units": {
+        "minutes": "分钟",
+        "hours": "小时",
+        "days": "天"
+      },
+      "unitLabel": "{{label}}单位"
+    },
+    "shortcutHints": {
+      "label": "键盘快捷键"
+    },
+    "advancedDatePicker": {
+      "selectTimeRange": "选择时间范围",
+      "invalidDateFormat": "日期格式无效",
+      "endBeforeStart": "结束日期不能早于开始日期",
+      "selectDateRange": "选择日期范围",
+      "relativeTime": "相对时间",
+      "startAndEndDates": "开始和结束日期",
+      "startDate": "开始日期",
+      "endDate": "结束日期",
+      "from": "从",
+      "to": "至",
+      "cancel": "取消",
+      "apply": "应用"
+    },
+    "budgetPeriodTooltip": {
+      "budgetPeriod": "预算周期为 {{start}} 至 {{end}}（{{timeZone}}）",
+      "nextReset": "下次重置时间为 {{date}}（{{timeZone}}）",
+      "spendLine": "{{label}}：${{amount}}",
+      "spendThisPeriod": "本周期支出",
+      "spendSoFar": "截至目前的支出",
+      "noBudgetSet": "未设置预算",
+      "maxBudget": "最高预算为 ${{amount}}",
+      "lifetimeBudget": "累计预算，永不重置",
+      "resetInterval": "重置间隔为 {{interval}}"
+    },
+    "charts": {
+      "chartTooltip": {
+        "notAvailable": "不适用"
+      },
+      "areaChart": {
+        "noData": "暂无数据"
+      },
+      "barChart": {
+        "noData": "暂无数据"
+      },
+      "stackedUsageChart": {
+        "total": "合计"
+      }
+    },
+    "copyButton": {
+      "copied": "已复制"
+    },
+    "createdKeyDisplay": {
+      "saveWarning": "请将此密钥保存在安全且便于取用的位置。出于安全考虑，你将<bold>无法通过 LiteLLM 账号再次查看此密钥</bold>。如果丢失，需要重新生成。",
+      "virtualKey": "虚拟密钥",
+      "copied": "已复制！",
+      "copyVirtualKey": "复制虚拟密钥",
+      "gatewayUrl": "网关 URL",
+      "copyUrl": "复制 URL",
+      "agentInstructions": "智能体使用说明",
+      "copyInstructions": "复制使用说明",
+      "hide": "隐藏",
+      "show": "显示",
+      "toasts": {
+        "keyCopied": "密钥已复制到剪贴板",
+        "instructionsCopied": "使用说明已复制",
+        "gatewayUrlCopied": "网关 URL 已复制到剪贴板"
+      }
+    },
+    "dataTable": {
+      "loadingMessage": "加载中…",
+      "defaultEmptyState": {
+        "title": "暂无结果",
+        "description": "没有符合搜索或筛选条件的记录。"
+      },
+      "filterDrawer": {
+        "title": "筛选",
+        "apply": "应用筛选",
+        "reset": "重置"
+      },
+      "pagination": {
+        "rowsPerPage": "每页行数",
+        "noResults": "暂无结果",
+        "showing": "第 {{start}} 至 {{end}} 条，共 {{total}} 条",
+        "pageOf": "第 {{page}} 页，共 {{total}} 页",
+        "firstPage": "跳转到首页",
+        "previousPage": "上一页",
+        "nextPage": "下一页",
+        "lastPage": "跳转到末页"
+      },
+      "selectionColumn": {
+        "selectAllRows": "选择所有行",
+        "selectRow": "选择此行"
+      },
+      "sortHeader": {
+        "sortOptionsFor": "{{column}}的排序选项",
+        "ascending": "升序",
+        "descending": "降序",
+        "reset": "重置"
+      },
+      "multiSortHeader": {
+        "fieldAscending": "{{field}}升序",
+        "fieldDescending": "{{field}}降序",
+        "sortOptionsFor": "{{fields}}的排序选项",
+        "fieldSeparator": "或",
+        "reset": "重置"
+      },
+      "toolbar": {
+        "search": "搜索",
+        "removeFilter": "移除{{label}}筛选条件",
+        "clearAll": "全部清除",
+        "refresh": "刷新",
+        "columns": "列",
+        "filters": "筛选"
+      },
+      "viewOptions": {
+        "view": "视图"
+      }
+    },
+    "errorState": {
+      "title": "加载失败",
+      "retry": "重试"
+    },
+    "errorUtils": {
+      "unknownError": "发生未知错误"
+    },
+    "inheritedBudgetHint": {
+      "scopes": {
+        "team": "团队",
+        "teamMember": "团队成员",
+        "organization": "组织",
+        "user": "用户"
+      },
+      "memberAlias": "{{team}}中的{{member}}",
+      "intro": "此密钥未单独设置预算，但其支出仍计入以下预算。"
+    },
+    "multiSelect": {
+      "placeholder": "选择选项",
+      "empty": "未找到选项",
+      "createOption": "创建“{{value}}”",
+      "loading": "加载中…",
+      "clearAll": "全部清除"
+    },
+    "numericalInput": {
+      "placeholder": "请输入数值"
+    },
+    "paginatedMultiSelect": {
+      "placeholder": "搜索…",
+      "empty": "暂无结果",
+      "loading": "加载中…"
+    },
+    "paginatedSearchSelect": {
+      "placeholder": "搜索…",
+      "empty": "暂无结果",
+      "loading": "加载中…"
+    },
+    "passwordInput": {
+      "hide": "隐藏密码",
+      "show": "显示密码"
+    },
+    "savingsTiles": {
+      "total": {
+        "label": "已记录的节省总额",
+        "loading": "加载中…",
+        "hint": "压缩 + 提示词缓存 + 自动路由",
+        "info": "旁边三个卡片中已记录节省金额的总和，不包含缺少估算值的自动路由请求。其中缓存部分仅计入 LiteLLM 注入带来的节省，客户端或供应商提供的缓存仅显示在缓存卡片的合计中。"
+      },
+      "compression": {
+        "label": "压缩节省",
+        "hint": "已压缩 {{tokens}} 个 Token",
+        "info": "Headroom 在调用前移除的 Token，按模型的输入单价计算。"
+      },
+      "caching": {
+        "label": "提示词缓存节省",
+        "hint": "LiteLLM 注入",
+        "total": "合计",
+        "info": "与所有 Token 均按输入单价计费相比，缓存节省的金额为缓存命中 Token 的折扣，减去供应商写入缓存收取的额外费用。主要数值仅统计 LiteLLM 通过配置的注入点或自动提示词缓存自行插入断点所带来的节省。旁边的合计还包含请求自带 cache_control 和供应商隐式缓存的情况。当写入缓存的流量多于复用流量时，两项数值都可能为负，因此主要数值不一定小于合计。"
+      },
+      "autorouter": {
+        "label": "自动路由节省",
+        "hint": "已记录估算值的小计",
+        "info": "以各路由器的最高档模型为基准，汇总可用的逐请求节省估算值，并扣除分类器费用。缺少估算值的请求不计入此小计，并不表示它们未节省费用。历史记录保留写入时使用的估算方式。自动路由用量选项卡会显示当前估算的覆盖情况。"
+      }
+    },
+    "scopedSavingsTab": {
+      "perDay": "按天",
+      "runningTotal": "累计节省",
+      "savedInterval": "{{interval}}节省金额",
+      "rangeUtc": "{{range}}（UTC）",
+      "bucketedByUtc": "支出按 UTC 日期分组",
+      "unavailable": "此时间范围的节省数据不可用，请更换时间范围或重新打开此选项卡。",
+      "title": "节省金额",
+      "cumulative": "累计",
+      "loading": "正在加载节省数据…",
+      "noUsage": "此时间范围内没有该{{entityType}}的用量记录。"
+    },
+    "searchSelect": {
+      "placeholder": "请选择…",
+      "empty": "暂无结果"
+    },
+    "summaryCard": {
+      "infoLabel": "{{label}}的计算方式"
+    },
+    "tableCells": {
+      "dateCell": {
+        "months": {
+          "jan": "1月",
+          "feb": "2月",
+          "mar": "3月",
+          "apr": "4月",
+          "may": "5月",
+          "jun": "6月",
+          "jul": "7月",
+          "aug": "8月",
+          "sep": "9月",
+          "oct": "10月",
+          "nov": "11月",
+          "dec": "12月"
+        }
+      },
+      "autoRouterTag": {
+        "title": "由自动路由“{{modelGroup}}”路由"
+      },
+      "idCell": {
+        "copyId": "复制 ID"
+      },
+      "modelsCell": {
+        "allProxyModels": "所有代理模型",
+        "scopedTooltip": "仅限 {{scope}} 路由，此密钥不能调用任何模型",
+        "noModelAccess": "无模型访问权限",
+        "more": "另有 {{number}} 个"
+      },
+      "spendBudgetCell": {
+        "unlimited": "· 无限制",
+        "memberBudget": "· 已用 {{spend}}，预算 ${{budget}}（团队成员）",
+        "ofBudget": "预算 ${{budget}}",
+        "meterValue": "已用 {{spend}}，预算 ${{budget}}",
+        "memberSpend": "团队成员支出 {{spend}}"
+      },
+      "userPopoverCell": {
+        "userAlias": "用户别名",
+        "userEmail": "用户邮箱",
+        "userId": "用户 ID",
+        "copyLabel": "复制{{label}}"
+      }
+    }
+  },
+  "commonComponents": {
+    "checkOpenapiSchema": {
+      "typeHelp": {
+        "string": "文本输入",
+        "number": "数值输入",
+        "integer": "整数输入",
+        "boolean": "布尔值（true/false）",
+        "fallback": "文本输入"
+      },
+      "fieldHelp": {
+        "maxBudget": "输入最高预算，单位为 USD，例如 100.50",
+        "budgetDuration": "选择预算重置周期",
+        "tpmLimit": "输入每分钟允许的最大 Token 数，必须为整数",
+        "rpmLimit": "输入每分钟允许的最大请求数，必须为整数",
+        "duration": "输入时长，例如 30s、24h、7d",
+        "metadata": "输入包含键值对的 JSON 对象\n示例：{\"team\": \"research\", \"project\": \"nlp\"}",
+        "config": "以 JSON 对象输入配置\n示例：{\"setting\": \"value\"}",
+        "permissions": "输入权限字符串，以英文逗号分隔",
+        "enforcedParams": "以 JSON 对象输入参数\n示例：{\"param\": \"value\"}",
+        "blocked": "输入 true/false 或具体的阻止条件",
+        "aliases": "以 JSON 对象输入别名\n示例：{\"alias1\": \"value1\", \"alias2\": \"value2\"}",
+        "models": "选择一个或多个模型名称",
+        "keyAlias": "输入此密钥的唯一标识",
+        "tags": "输入标签字符串，以英文逗号分隔"
+      },
+      "jsonHelp": "{{helpText}}\n必须为有效的 JSON 格式",
+      "enumHelp": "从可用选项中选择\n允许的值为 {{values}}",
+      "fetchFailed": "无法获取结构定义",
+      "required": "{{label}}为必填项",
+      "invalidJson": "请输入有效的 JSON",
+      "jsonPlaceholder": "以 JSON 格式输入",
+      "durationPlaceholder": "例如 30s、30h、30d",
+      "error": "错误：{{error}}"
+    },
+    "defaultProxyAdminTag": {
+      "label": "默认代理管理员"
+    },
+    "deleteResourceModal": {
+      "typeToConfirm": "输入 <confirmation/> 以确认删除。",
+      "cancel": "取消",
+      "deleting": "正在删除…",
+      "delete": "删除"
+    }
+  },
+  "toast": {
+    "titles": {
+      "budgetExceeded": "预算已超限",
+      "serviceUnavailable": "服务不可用",
+      "authenticationError": "身份验证失败",
+      "accessDenied": "访问被拒绝",
+      "notFound": "未找到资源",
+      "validationError": "校验失败",
+      "requestError": "请求错误",
+      "alreadyExists": "已存在",
+      "rateLimitExceeded": "请求频率已超限",
+      "serverError": "服务器错误",
+      "error": "错误"
+    }
+  },
+  "networking": {
+    "connectionTestFailed": "连接测试失败，{{status}} {{statusText}}",
+    "mcpToolsFetchFailed": "无法获取 MCP 工具",
+    "mcpToolsParseFailed": "无法解析 MCP 工具响应",
+    "mcpToolsListFailed": "MCP 工具列表获取失败，{{status}} {{statusText}}",
+    "sessionExpired": "界面会话已过期，正在退出登录。",
+    "modelCreated": "模型 {{modelName}} 创建成功",
+    "noModelsExist": "暂无模型，请点击“添加模型”开始配置。",
+    "keyInfoFetchFailed": "无法获取密钥信息，{{error}}",
+    "teamUpdateFailed": "团队设置更新失败，{{error}}",
+    "configValueUpdated": "配置值已更新！",
+    "configFieldReset": "代理上的字段已重置",
+    "passThroughEndpointUpdated": "透传端点已更新"
+  },
+  "utils": {
+    "ptuValidation": {
+      "countRange": "PTU 数量必须为 1 到 {{max}} 之间的整数",
+      "rateRange": "每 PTU 每小时的费用必须在 0 到 {{max}} 之间",
+      "countAndRateTogether": "PTU 数量和每 PTU 每小时费用必须同时设置",
+      "reservedCapacityCost": "PTU 部署按预留容量计费，因此此费用必须为 0 或留空",
+      "effectiveFromRequired": "设置 PTU 数量时必须指定 PTU 生效时间",
+      "effectiveToAfterFrom": "PTU 结束时间必须晚于生效时间"
+    },
+    "licenseUtils": {
+      "noExpiration": "永不过期",
+      "expired": "已于 {{date}} 过期",
+      "expires": "将于 {{date}} 过期"
+    },
+    "roles": {
+      "undefinedRole": "未定义角色",
+      "appOwner": "应用所有者",
+      "admin": "管理员",
+      "adminViewer": "管理员只读用户",
+      "orgAdmin": "组织管理员",
+      "internalUser": "内部用户",
+      "internalViewer": "内部只读用户",
+      "appUser": "应用用户",
+      "unknownRole": "未知角色"
+    },
+    "dataUtils": {
+      "copiedToClipboard": "已复制到剪贴板",
+      "copyFailed": "无法复制到剪贴板"
+    },
+    "textUtils": {
+      "invalidJson": "请输入有效的 JSON"
+    }
+  },
+  "themeToggle": {
+    "switchToLight": "切换到浅色模式",
+    "switchToDark": "切换到深色模式"
+  },
+  "ui": {
+    "breadcrumb": {
+      "label": "面包屑导航"
+    },
+    "combobox": {
+      "clear": "清除"
+    },
+    "command": {
+      "title": "命令面板",
+      "description": "搜索要执行的命令…"
+    },
+    "dialog": {
+      "contentClose": "关闭",
+      "footerClose": "关闭"
+    },
+    "messageScroller": {
+      "scrollToEnd": "滚动到底部",
+      "scrollToStart": "滚动到顶部"
+    },
+    "resizableSheetContent": {
+      "resize": "调整抽屉大小",
+      "collapse": "收起抽屉",
+      "expand": "展开抽屉"
+    },
+    "sheet": {
+      "close": "关闭"
+    },
+    "spinner": {
+      "loading": "加载中"
+    }
+  },
+  "uiTheme": {
+    "settings": {
+      "toasts": {
+        "updated": "主题设置已更新！",
+        "updateFailed": "主题设置更新失败",
+        "reset": "主题设置已恢复默认！",
+        "resetFailed": "主题设置重置失败"
+      },
+      "title": "界面主题自定义",
+      "description": "使用自定义标志和网站图标设置 LiteLLM 管理界面。",
+      "logoUrl": {
+        "label": "自定义标志 URL",
+        "hint": "输入自定义标志的 URL，留空则使用默认标志"
+      },
+      "logoUrlDark": {
+        "label": "自定义标志 URL（深色模式）",
+        "hint": "输入适合深色背景的标志 URL，留空则复用上方标志"
+      },
+      "faviconUrl": {
+        "label": "自定义网站图标 URL",
+        "hint": "输入自定义网站图标的 URL（.ico、.png 或 .svg），留空则使用默认图标"
+      },
+      "saveButton": "保存更改",
+      "resetButton": "恢复默认"
+    }
+  },
+  "docsMenu": {
+    "trigger": "文档"
+  },
+  "apiReference": {
+    "page": {
+      "featureName": "API 参考选项卡"
+    },
+    "view": {
+      "title": "兼容 OpenAI 的代理 API 参考",
+      "description": "LiteLLM 兼容 OpenAI，因此你的 API 密钥可用于 OpenAI SDK。只需将 base_url 指向 LiteLLM 代理即可，示例如下。"
+    },
+    "docLink": {
+      "title": "在新标签页中打开文档",
+      "label": "API 参考文档",
+      "newTab": "（在新标签页中打开）"
+    }
+  }
+}

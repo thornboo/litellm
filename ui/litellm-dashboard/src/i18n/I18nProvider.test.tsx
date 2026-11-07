@@ -5,7 +5,7 @@ import { I18nextProvider, initReactI18next, useTranslation } from "react-i18next
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { LanguageGate } from "./I18nProvider";
-import { Locales, Messages } from "./languages";
+import { Locales, LOCALES, Messages } from "./languages";
 import en from "./locales/en.json";
 
 const JAPANESE_LOGOUT = "ログアウト";
@@ -54,6 +54,14 @@ afterEach(() => {
 });
 
 describe("LanguageGate", () => {
+  it("restores registered Chinese before initializing labels read once", async () => {
+    renderGate("zh-CN", LOCALES);
+
+    expect(await screen.findByTestId("logout")).toHaveTextContent("退出登录");
+    expect(screen.getByTestId("logout-read-once")).toHaveTextContent("退出登录");
+    expect(screen.getByTestId("change-password")).toHaveTextContent("修改密码");
+    expect(document.documentElement.lang).toBe("zh-CN");
+  });
   it("shows the stored language, with English for strings it hasn't translated", async () => {
     renderGate("ja", new Map([["ja", async () => japanese]]));
 

@@ -12,6 +12,7 @@ import {
 } from "@/components/networking";
 import { Alert, AlertAction, AlertDescription, AlertTitle } from "@/components/shared/Alert";
 import { PasswordInput } from "@/components/shared/PasswordInput";
+import LanguageField from "@/components/SidebarAccountMenu/LanguageField";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { FormField } from "@/components/shared/form/FormField";
 import { Button } from "@/components/ui/button";
@@ -373,6 +374,7 @@ function LoginPageContent() {
                   )}
                 </FieldGroup>
               </form>
+              <LanguageField />
             </div>
             {uiConfig?.sso_configured && <SsoEnabledNotice />}
           </TooltipProvider>

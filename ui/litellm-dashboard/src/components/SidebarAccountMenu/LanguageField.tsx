@@ -13,6 +13,7 @@ import {
   Locales,
   LOCALES,
   nativeName,
+  resolveLanguage,
   supportedLanguages,
 } from "@/i18n/languages";
 
@@ -35,7 +36,8 @@ export default function LanguageField({
   if (languages.length < 2) return null;
 
   const choose = (language: string | null) => {
-    if (language === null || language === i18n.language) return;
+    if (language === null) return;
+    if (language === i18n.language && language === resolveLanguage(store.read(), locales)) return;
     store.write(language);
     reload();
   };
@@ -71,6 +73,7 @@ export default function LanguageField({
           ))}
         </SelectContent>
       </Select>
+      <FieldDescription className="text-xs">{t("shell.sidebarAccountMenu.language.reloadNote")}</FieldDescription>
       <FieldDescription className="text-xs">
         <Trans
           i18nKey="shell.sidebarAccountMenu.language.fallbackNote"

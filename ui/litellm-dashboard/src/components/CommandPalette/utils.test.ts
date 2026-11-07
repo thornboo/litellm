@@ -1,4 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
+import i18n from "@/i18n/i18n";
+import { LOCALES } from "@/i18n/languages";
 import { visibleMenuGroups, type MenuGroup, menuGroups } from "@/components/leftnav";
 import { toSiTerminology } from "@/lib/terminology";
 import { effectiveSessionRole, isViewOnlySessionRole } from "@/utils/roles";
@@ -15,6 +17,30 @@ describe("paletteScopeForRoute", () => {
 });
 
 describe("flattenNavItems", () => {
+  afterEach(async () => {
+    await i18n.changeLanguage("en");
+  });
+
+  it("finds Chinese navigation labels and keeps their routes and SI terminology", async () => {
+    const messages = await LOCALES.get("zh-CN")?.();
+    if (messages) i18n.addResourceBundle("zh-CN", "translation", messages);
+    await i18n.changeLanguage("zh-CN");
+    const groups: MenuGroup[] = [
+      {
+        groupLabel: "AI GATEWAY",
+        items: [
+          { key: "api-keys", page: "api-keys", label: "shell.nav.items.virtualKeys" },
+          { key: "model-hub-table", page: "model-hub-table", label: "shell.nav.items.aiHub" },
+        ],
+      },
+    ];
+
+    const items = flattenNavItems(groups, toSiTerminology);
+    expect(matchNavItems(items, "虚拟密钥")).toMatchObject([{ label: "虚拟密钥", route: "api-keys" }]);
+    expect(matchNavItems(items, "SI 中心")).toMatchObject([
+      { label: "SI 中心", section: "SI 网关", route: "model-hub-table" },
+    ]);
+  });
   it("flattens visible leaves and skips external links", () => {
     const groups: MenuGroup[] = [
       {

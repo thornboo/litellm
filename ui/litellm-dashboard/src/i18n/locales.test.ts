@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
+import { createInstance } from "i18next";
 
 import i18n from "./i18n";
 import en from "./locales/en.json";
+import zh from "./locales/zh-CN.json";
 
 type Messages = { readonly [key: string]: string | Messages };
 
@@ -50,5 +52,54 @@ describe("en.json", () => {
 
   it("is what the i18n instance resolves keys from", () => {
     expect(i18n.t("workflows.drawer.eventCount", { count: 2 })).toBe("2 events");
+  });
+});
+
+describe("Simplified Chinese", () => {
+  const translated = leaves(zh, "");
+  const english = new Map(entries);
+  const placeholders = (value: unknown) =>
+    String(value)
+      .match(/\{\{[^}]+\}\}/g)
+      ?.sort() ?? [];
+  const tags = (value: unknown) =>
+    String(value)
+      .match(/<\/?[A-Za-z][A-Za-z0-9]*\s*\/?>/g)
+      ?.sort() ?? [];
+
+  it("preserves every interpolation and component tag required by translated messages", () => {
+    expect(translated.length).toBeGreaterThan(0);
+    for (const [key, value] of translated) {
+      expect(english.has(key), key).toBe(true);
+      expect(typeof value, key).toBe("string");
+      expect(value, key).not.toBe("");
+      expect(placeholders(value), key).toEqual(placeholders(english.get(key)));
+      expect(tags(value), key).toEqual(tags(english.get(key)));
+    }
+  });
+
+  it("translates whole resource groups without missing entries", () => {
+    const expected = entries.filter(([key]) => Object.hasOwn(zh, key.split(".")[0])).map(([key]) => key);
+    expect(translated.map(([key]) => key).sort()).toEqual(expected.sort());
+  });
+
+  it("renders Chinese messages, count interpolation and English fallback", async () => {
+    const instance = createInstance();
+    await instance.init({
+      lng: "zh-CN",
+      fallbackLng: "en",
+      resources: { en: { translation: en }, "zh-CN": { translation: zh } },
+    });
+
+    expect(instance.t("login.form.title")).toBe("登录");
+    expect(instance.t("shared.dataTable.pagination.showing", { start: 1, end: 10, total: 25 })).toBe(
+      "第 1 至 10 条，共 25 条",
+    );
+    for (const count of [0, 1, 2]) {
+      expect(instance.t("shell.notifications.release.newFeatures", { count })).toBe(`${count} 项新功能`);
+    }
+    expect(instance.t("modelsAndEndpoints.page.tabs.add")).toBe(en.modelsAndEndpoints.page.tabs.add);
+    await instance.changeLanguage("en");
+    expect(instance.t("login.form.title")).toBe(en.login.form.title);
   });
 });

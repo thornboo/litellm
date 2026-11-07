@@ -1,7 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import i18n from "@/i18n/i18n";
+import { LANGUAGE_STORAGE_KEY, LOCALES } from "@/i18n/languages";
 import LoginPage from "./LoginPage";
 
 const mockPush = vi.fn();
@@ -75,7 +77,9 @@ const setSearch = (search: string) => {
 const originalLocation = window.location;
 
 describe("LoginPage submit payload", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
+    await i18n.changeLanguage("en");
+    window.localStorage.removeItem(LANGUAGE_STORAGE_KEY);
     vi.clearAllMocks();
     WORKERS = [];
     setSearch("");
@@ -90,22 +94,61 @@ describe("LoginPage submit payload", () => {
     });
   });
 
-  afterEach(() => {
+  afterEach(async () => {
+    cleanup();
+    await i18n.changeLanguage("en");
+    window.localStorage.removeItem(LANGUAGE_STORAGE_KEY);
     Object.defineProperty(window, "location", { value: originalLocation, writable: true });
   });
 
-  it("sends exactly {username, password, useV3:false} when the Login button is clicked", async () => {
+  it.each([
+    { language: "en", title: "Login", username: "Username", password: "Password" },
+    { language: "zh-CN", title: "登录", username: "用户名", password: "密码" },
+  ])("keeps the login payload unchanged in $language", async ({ language, title, username, password }) => {
+    const messages = await LOCALES.get(language)?.();
+    if (messages) i18n.addResourceBundle(language, "translation", messages);
+    await i18n.changeLanguage(language);
     const user = userEvent.setup();
+    renderLoginPage();
+    await screen.findByRole("heading", { name: title });
+
+    fireEvent.change(screen.getByLabelText(username), { target: { value: "admin" } });
+    fireEvent.change(screen.getByLabelText(password), { target: { value: "sk-9876" } });
+    await user.click(screen.getByRole("button", { name: title, exact: true }));
+
+    await waitFor(() => expect(mockMutate).toHaveBeenCalledTimes(1));
+    expect(mockMutate.mock.calls[0][0]).toStrictEqual({ username: "admin", password: "sk-9876", useV3: false });
+    expect(switchToWorkerUrl).not.toHaveBeenCalled();
+  });
+
+  it("saves a language choice without submitting the login form", async () => {
+    const reload = vi.fn();
+    Object.defineProperty(window, "location", { value: { ...window.location, reload }, writable: true });
     renderLoginPage();
     await screen.findByRole("heading", { name: "Login" });
 
     fireEvent.change(screen.getByLabelText("Username"), { target: { value: "admin" } });
     fireEvent.change(screen.getByLabelText("Password"), { target: { value: "sk-9876" } });
-    await user.click(screen.getByRole("button", { name: "Login" }));
+    await userEvent.click(screen.getByRole("combobox", { name: /Language/ }));
+    await userEvent.click(await screen.findByRole("option", { name: /简体中文/ }));
 
-    await waitFor(() => expect(mockMutate).toHaveBeenCalledTimes(1));
-    expect(mockMutate.mock.calls[0][0]).toStrictEqual({ username: "admin", password: "sk-9876", useV3: false });
-    expect(switchToWorkerUrl).not.toHaveBeenCalled();
+    expect(window.localStorage.getItem(LANGUAGE_STORAGE_KEY)).toBe("zh-CN");
+    expect(reload).toHaveBeenCalledTimes(1);
+    expect(mockMutate).not.toHaveBeenCalled();
+  });
+
+  it("validates empty credentials in Chinese", async () => {
+    const messages = await LOCALES.get("zh-CN")?.();
+    if (messages) i18n.addResourceBundle("zh-CN", "translation", messages);
+    await i18n.changeLanguage("zh-CN");
+    renderLoginPage();
+    await screen.findByRole("heading", { name: "登录" });
+
+    await userEvent.click(screen.getByRole("button", { name: "登录", exact: true }));
+
+    expect(await screen.findByText("请输入用户名")).toBeInTheDocument();
+    expect(screen.getByText("请输入密码")).toBeInTheDocument();
+    expect(mockMutate).not.toHaveBeenCalled();
   });
 
   it("submits on Enter from the password field", async () => {

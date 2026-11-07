@@ -7,7 +7,9 @@ export type LanguageStore = { readonly read: () => string | null; readonly write
 export const DEFAULT_LANGUAGE = "en";
 export const LANGUAGE_STORAGE_KEY = "litellm_language";
 
-export const LOCALES: Locales = new Map();
+export const LOCALES: Locales = new Map([
+  ["zh-CN", () => import("./locales/zh-CN.json").then((module) => module.default)],
+]);
 
 export const browserLanguageStore: LanguageStore = {
   read: () => getLocalStorageItem(LANGUAGE_STORAGE_KEY),
@@ -23,6 +25,7 @@ const displayName = (language: string, displayLanguage: string): string =>
   new Intl.DisplayNames([displayLanguage], { type: "language" }).of(language) ?? language;
 
 export const nativeName = (language: string): string => {
+  if (language === "zh-CN") return "简体中文";
   const name = displayName(language, language);
   return name.charAt(0).toLocaleUpperCase(language) + name.slice(1);
 };
